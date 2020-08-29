@@ -40,6 +40,7 @@ namespace devboost.dronedelivery
             services.AddScoped<IPedidoRepository, PedidoRepository>();
             services.AddScoped<IDroneRepository, DroneRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
 
             services.AddScoped<ITokenHandler, TokenHandler>();
             services.AddScoped<ILoginHandler, LoginHandler>();
@@ -47,6 +48,9 @@ namespace devboost.dronedelivery
 
             services.AddScoped<IPedidoHandler, PedidoHandler>();
             services.AddScoped<IDroneHandler, DroneHandler>();
+
+            services.AddScoped<IClienteQueryHandler, ClienteQueryHandler>();
+
 
             // Evita o Loop Referência na serialização do JSON
             services.AddControllers().AddNewtonsoftJson(options =>

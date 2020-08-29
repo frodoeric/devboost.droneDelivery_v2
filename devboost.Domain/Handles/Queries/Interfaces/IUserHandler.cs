@@ -6,6 +6,6 @@ namespace devboost.Domain.Handles.Queries.Interfaces
 {
     public interface IUserHandler
     {
-        Task<User> GetUser(QueryUserFilter userDTO);
+        Task<User> GetUser(QueryUserFilter ClienteDTO);
     }
 }

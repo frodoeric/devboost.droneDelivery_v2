@@ -19,6 +19,7 @@ namespace devboost.dronedelivery.Controllers
         }
 
         [HttpPost("realizarpedido")]
+        [Authorize(Roles = "usuario,admin,cliente")]
         public async Task<ActionResult> RealizarPedido([FromBody] RealizarPedidoRequest pedido)
         {
             var result = await _pedidoService.RealizarPedido(pedido);
@@ -26,6 +27,7 @@ namespace devboost.dronedelivery.Controllers
         }
 
         [HttpPost("distribuirpedido")]
+        [Authorize(Roles = "usuario,admin,cliente")]
         public async Task<ActionResult> DistribuirPedido()
         {
             await _pedidoService.DistribuirPedido();

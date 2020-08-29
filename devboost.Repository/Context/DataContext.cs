@@ -15,12 +15,22 @@ namespace devboost.Repository.Context
         public DbSet<PedidoDrone> PedidoDrone { get; set; }
         public DbSet<User> User { get; set; }
 
+        public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<ClientePedido> ClientePedido { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             DroneModel(builder);
             PedidoModel(builder);
             PedidoDroneModel(builder);
             UserModel(builder);
+            ClienteModel(builder);
+            ClientePedidoModel(builder);
+        }
+
+        void ClienteModel(ModelBuilder builder)
+        {
+            builder.Entity<Cliente>().HasKey(x => x.Id);
         }
 
         void DroneModel(ModelBuilder builder)
@@ -35,6 +45,28 @@ namespace devboost.Repository.Context
         {
             builder.Entity<Pedido>()
                 .HasKey(x => x.Id);
+        }
+
+        void ClientePedidoModel(ModelBuilder builder)
+        {
+            builder.Entity<ClientePedido>().ToTable("ClientePedido");
+
+            builder.Entity<ClientePedido>()
+                .HasKey(x => new { x.ClienteId, x.PedidoId });
+
+            builder.Entity<ClientePedido>()
+                .Property(x => x.ClienteId)
+                .HasColumnName("ClienteId");
+
+            builder.Entity<ClientePedido>()
+                .Property(x => x.PedidoId)
+                .HasColumnName("PedidoId");
+
+            builder.Entity<ClientePedido>()
+                .HasOne(x => x.Cliente)
+                .WithMany(x => x.ClientePedidos)
+                .HasForeignKey(x => x.ClienteId);
+
         }
 
         void PedidoDroneModel(ModelBuilder builder)

@@ -7,7 +7,6 @@ namespace devboost.dronedelivery.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class DroneController : ControllerBase
     {
         readonly IDroneHandler _droneService;
@@ -18,6 +17,7 @@ namespace devboost.dronedelivery.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Get()
         {
             var result = await _droneService.BuscarDrone();

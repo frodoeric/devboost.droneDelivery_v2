@@ -19,5 +19,13 @@ namespace devboost.Repository
         {
             return await _dataContext.User.FirstOrDefaultAsync(x => x.UserName == userName);
         }
+
+        public async Task<User> Create(User user)
+        {
+            var userRetorno = await _dataContext.AddAsync(user);
+            await _dataContext.SaveChangesAsync();
+
+            return userRetorno.Entity;
+        }
     }
 }

@@ -119,3 +119,20 @@ VALUES
 	(NEWID(),'Eric', '12345', 'cliente'),
 	(NEWID(),'Allan', '12345', 'cliente')
 GO
+
+CREATE TABLE Cliente (
+    ID [uniqueidentifier] PRIMARY KEY NOT NULL,
+    [Latitude] [float] NOT NULL,
+	[Longitude] [float] NOT NULL,
+	UserId [uniqueidentifier] NOT NULL FOREIGN KEY REFERENCES Usuario(ID)
+);
+
+CREATE TABLE ClientePedido (
+    ClienteID [uniqueidentifier] NOT NULL FOREIGN KEY (ClienteId) REFERENCES Cliente(ID),
+    PedidoId [uniqueidentifier] NOT NULL FOREIGN KEY (PedidoId) REFERENCES Pedido(ID)
+);
+
+INSERT INTO CLIENTE VALUES (NEWID(), -23.5990684,-46.6784195, '2DAFD3C1-D4A7-44DA-9E3E-D68E5C6264F6')
+INSERT INTO ClientePedido VALUES ('A208E2A3-EFFB-46D3-B938-9F76079BD237', 'AA7BC250-5922-47DF-8EC1-FBFDBFE00999')
+
+
